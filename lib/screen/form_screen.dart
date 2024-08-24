@@ -1,3 +1,5 @@
+import 'package:first_app/components/task.dart';
+import 'package:first_app/data/task_dao.dart';
 import 'package:first_app/data/task_inherited.dart';
 import 'package:flutter/material.dart';
 
@@ -91,12 +93,6 @@ class _FormScreenState extends State<FormScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
-                      validator: (value) {
-                        if (value != null && value.isEmpty) {
-                          return 'Insira uma imagem para a tarefa';
-                        }
-                        return null;
-                      },
                       keyboardType: TextInputType.url,
                       controller: imageController,
                       textAlign: TextAlign.center,
@@ -141,11 +137,12 @@ class _FormScreenState extends State<FormScreen> {
                   ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          TaskInherited.of(widget.taskContext).addNew(
-                            nameController.text,
-                            int.parse(difficultyController.text),
-                            imageController.text,
+                          Task task = Task(
+                            title: nameController.text,
+                            dificulty: int.parse(difficultyController.text),
+                            image: imageController.text,
                           );
+                          TaskDao().save(task);
 
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(

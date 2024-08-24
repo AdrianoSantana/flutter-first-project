@@ -11,10 +11,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: TaskInherited(
-        child: const InitialScreen(),
-      ),
-    );
+    return MaterialApp(home: TaskInherited(child: const InitialScreen()));
   }
 }
